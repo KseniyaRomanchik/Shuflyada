@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "SET ENVIROMENT=dev&&ts-node server.ts"
+    "start-dev": "SET ENVIRONMENT=dev&&nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,10 @@
   "dependencies": {
     "express": "^4.16.2",
     "logger": "0.0.1",
-    "mongoose": "^4.13.7",
-    "typescript": "^2.6.2"
+    "mongoose": "^4.13.7"
   },
   "devDependencies": {
     "@types/node": "^8.5.1",
-    "ts-node": "^4.0.2"
+    "nodemon": "^1.14.11"
   }
 }

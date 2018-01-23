@@ -2,20 +2,18 @@ const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('logger');
 
-const InitFabric = require('./InitFabric');
-
-global.__baseUrl = __diranme;
+global.__baseUrl = __dirname;
 
 class Server {
 
-  private logger: any = logger.createLogger('global.log');
-  private app: any = express();
-
   constructor(config) {
+
+    this.logger = logger.createLogger('global.log');
+    this.app = express();
     this.runServer(config);
   }
 
-  connectDB(config: any) {
+  connectDB(config) {
 
     mongoose.connect(`mongodb://${ config.db.url }:${ config.db.port }/SHUFLYADA`);
 
@@ -31,7 +29,7 @@ class Server {
     });
   }
 
-  runServer(config: any) {
+  runServer(config) {
 
     return Promise.all([ 
       this.connectDB(config)
@@ -43,5 +41,5 @@ class Server {
   }
 }
 
-new Server(require(`./config.${ process.env.ENVIROMENT }.json`));
+new Server(require(`./config.${ process.env.ENVIRONMENT }.json`));
 
