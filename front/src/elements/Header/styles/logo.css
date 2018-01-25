@@ -1,0 +1,29 @@
+.logo {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.logo>span {
+  display: inline-block;
+  font-style: italic;
+}
+
+.logo>img {
+  width: 100%;
+}
+
+.logo>.phones {
+  padding: 0.5em 0;
+  color: rgba(255,255,255,1);
+}
+
+.logo .phones>span {
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: lighter;
+}
+
+.logo .socialButtons>i {
+  padding: 0 0.25em;
+  color: rgba(255,255,255,1);
+}

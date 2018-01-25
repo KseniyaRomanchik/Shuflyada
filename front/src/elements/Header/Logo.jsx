@@ -1,4 +1,6 @@
 import React from 'react';
+import SocialButtons from './SocialButtons';
+import Phones from './Phones';
 
 export default () => (
   <div className="logo">
@@ -6,5 +8,7 @@ export default () => (
     <span className="slogan">
       Удобная мебель - легкая жизнь
     </span>
+    <Phones />
+    <SocialButtons />
   </div>
 );

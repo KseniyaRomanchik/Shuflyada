@@ -1,5 +1,5 @@
 import React from 'react';
-import './header.css';
+import './styles/header.css';
 
 import NavigationMenu from './NavigationMenu';
 import Logo from './Logo';

@@ -1,0 +1,25 @@
+@import "logo.css";
+@import "menu.css";
+
+.header {
+  color: rgb(130, 131, 133);
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.header.mainPage {
+  height: 1000px;
+  height: 100vh;
+  background-image: url(/images/main.jpg);
+  align-items: flex-start;
+}
+
+.header:not(.mainPage){
+  border-top-color: rgb(204, 204, 204);
+  border-top-width: 1px;
+  border-top-style: solid;
+}
