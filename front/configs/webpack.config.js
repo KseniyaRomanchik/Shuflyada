@@ -31,14 +31,15 @@ module.exports = {
   ],
 
   output: {
-    publicPath: PATHS.dist,
-    path: PRODUCTION ? PATHS.dist : __dirname,
+    publicPath: '/',
+    path: PATHS.dist,
     filename: PRODUCTION ? '[name].[chunkhash].js' : 'bundle.js'
   },
   context: path.resolve(__dirname, PATHS.src),
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
+    port: '8080',
     // host: '127.0.0.0',
     contentBase: path.resolve(__dirname, PATHS.public),
     publicPath: '/',
@@ -52,7 +53,7 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.(less|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [{
@@ -73,24 +74,24 @@ module.exports = {
       {
         test: /\.(png|gif|jpg|ico|svg)$/,
         include: [PATHS.public],
-        loader: 'file-loader?name=images/[name].[ext]'
+        loader: 'file-loader?name=[path][name].[ext]'
       },
       {
         test: /\.(woff|eot|ttf)$/,
         include: [PATHS.public],
-        loader: 'file-loader?name=fonts/[name].[ext]'
+        loader: 'file-loader?name=[path][name].[ext]'
       }
     ]
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.json' ],
+    extensions: ['.js', '.jsx', '.json'],
     modules: ['node_modules'],
     alias: {
-      app: PATHS.root,
-      src: PATHS.src,
+      app: PATHS.src,
       actions: path.resolve(PATHS.src, 'actions'),
       public: path.resolve(PATHS.src, 'public'),
       components: path.resolve(PATHS.src, 'components'),
+      elements: path.resolve(PATHS.src, 'elements'),
       reducers: path.resolve(PATHS.src, 'reducers'),
       services: path.resolve(PATHS.src, 'services'),
       constants: path.join(PATHS.src, 'constants')
@@ -101,7 +102,7 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: '5050',
+      title: 'Shuflyada',
       template: path.resolve(PATHS.public, 'index.html'),
     })
   ].concat(PRODUCTION ? [
