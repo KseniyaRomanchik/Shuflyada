@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const autoprefixer = require('autoprefixer');
 const path = require('path');
 
 const PATHS = {
@@ -14,28 +16,24 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: PRODUCTION ? {
-    main: PATHS.src,
-    vendor: [
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router-dom',
-      'redux',
-      'redux-thunk',
-      'emotion',
-    ]
+    main: path.resolve(PATHS.src, 'index.jsx'),
+    polyfills: ['babel-polyfill'],
+    react: ['react', 'react-dom', 'react-redux', 'react-router', 'react-router-dom', 'react-router-redux', 'redux', 'redux-modules', 'redux-thunk'],
+    moment: ['moment']
   } : [
+    'babel-polyfill',
     'webpack-dev-server/client',
     'webpack/hot/only-dev-server',
-    path.resolve(PATHS.src, 'index.js'),
+    path.resolve(PATHS.src, 'index.jsx'),
   ],
 
   output: {
     publicPath: '/',
+    chunkFilename: '[name]-chunk.js',
     path: PATHS.dist,
-    filename: PRODUCTION ? '[name].[chunkhash].js' : 'bundle.js'
+    filename: '[name].[hash].js'
   },
-  context: path.resolve(__dirname, PATHS.src),
+  context: PATHS.src,
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
@@ -59,14 +57,14 @@ module.exports = {
           use: [{
             loader: 'css-loader'
           }, {
-            loader: 'less-loader', 
+            loader: 'less-loader',
             options: {
               outputStyle: 'expanded'
             }
           }].concat(PRODUCTION ? [{
-            loader: 'postcss-loader', 
+            loader: 'postcss-loader',
             options: {
-              plugins: [require('autoprefixer')]
+              plugins: []
             }
           }] : [])
         })
@@ -98,7 +96,11 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -108,14 +110,22 @@ module.exports = {
   ].concat(PRODUCTION ? [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'],
-    })
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /en-gb|ru/
+    ),
+    new BundleAnalyzerPlugin()
   ] : [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new webpack.ProgressPlugin((percentage, msg) => {
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(`${(percentage * 100).toFixed(2)}% ${msg}`);
+    })
   ]),
   performance: {
     hints: false
   },
-}
+};
+
