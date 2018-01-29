@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
@@ -11,12 +12,12 @@ import Page404 from 'components/Pages/Page404/Page404Container';
 
 export default () => (
   <Switch>
-    <Route exact path="/" component={ Main }/>
-    <Route path="/about" component={ About }/>
-    <Route path="/service" component={ Service }/>
-    <Route path="/portfolio" component={ Portfolio }/>
-    <Route path="/blog" component={ Blog }/>
-    <Route path="/contacts" component={ Contacts }/>
-    <Route component={ Page404 }/>
+    <Route exact path="/" component={Main} />
+    <Route path="/about" component={About} />
+    <Route path="/service" component={Service} />
+    <Route path="/portfolio" component={Portfolio} />
+    <Route path="/blog" component={Blog} />
+    <Route path="/contacts" component={Contacts} />
+    <Route component={Page404} />
   </Switch>
-)
+);

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 
@@ -56,15 +56,17 @@ module.exports = {
           fallback: 'style-loader',
           use: [{
             loader: 'css-loader'
-          }, {
-            loader: 'less-loader',
-            options: {
-              outputStyle: 'expanded'
-            }
-          }].concat(PRODUCTION ? [{
+          },
+          // {
+          //   loader: 'less-loader',
+          //   options: {
+          //     outputStyle: 'expanded'
+          //   }
+            // }
+          ].concat(PRODUCTION ? [{
             loader: 'postcss-loader',
             options: {
-              plugins: []
+              plugins: [autoprefixer]
             }
           }] : [])
         })
@@ -111,7 +113,7 @@ module.exports = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.ContextReplacementPlugin(
-      /moment[\/\\]locale$/,
+      /moment[/\\]locale$/,
       /en-gb|ru/
     ),
     new BundleAnalyzerPlugin()

@@ -19,11 +19,11 @@ a {
 #root {
   min-height: 100%;
   background-color: '#ffffff';
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: stretch;
-  align-items: stretch;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* flex-direction: column; */
+  /* align-content: stretch; */
+  /* align-items: stretch; */
 }
 
 *,

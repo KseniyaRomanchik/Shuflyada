@@ -1,6 +1,7 @@
-import React from 'react';
+// @flow
+import React, { Component } from 'react';
 
-export default class Page404 extends React.Component {
+export default class Page404 extends Component {
   render() {
     return <div>Page404</div>
   }

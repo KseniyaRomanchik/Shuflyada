@@ -1,6 +1,7 @@
-import React from 'react';
+// @flow
+import React, { Component } from 'react';
 
-export default class Blog extends React.Component {
+export default class Blog extends Component {
   render() {
     return <div>Blog</div>
   }

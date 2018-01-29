@@ -46,12 +46,11 @@
     "template-curly-spacing": 0,
     "no-param-reassign": 0,
     "react/jsx-curly-spacing": [1, { 
-      "when": "never", 
-      "attributes": {
-        "allowMultiline": false
-      }, 
-      "children": true }
-    ],
+      "when": "never",
+      "children": {
+        "when": "always"
+      }
+    }],
     "indent": [
       "error",
       2

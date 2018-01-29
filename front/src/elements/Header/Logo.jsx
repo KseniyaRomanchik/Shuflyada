@@ -1,14 +1,22 @@
+// @flow
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
 import SocialButtons from './SocialButtons';
 import Phones from './Phones';
 
-export default () => (
-  <div className="logo">
-    <img src="/images/Logo.png" alt="" />
-    <span className="slogan">
-      Удобная мебель - легкая жизнь
-    </span>
-    <Phones />
-    <SocialButtons />
-  </div>
-);
+export default () => {
+
+  return (
+    <div className="logo">
+      <NavLink to="/">
+        <img src="/images/Logo.png" alt="" />
+      </NavLink>
+      <span className="slogan">
+        Удобная мебель - легкая жизнь
+      </span>
+      <Phones />
+      <SocialButtons />
+    </div>
+  );
+};

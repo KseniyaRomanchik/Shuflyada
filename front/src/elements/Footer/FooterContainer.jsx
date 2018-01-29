@@ -1,8 +1,10 @@
-import React from 'react';
+// @flow
+import React, { Component } from 'react';
 import './footer.css';
 
-export default class Footer extends React.Component {
+export default class Footer extends Component {
   render() {
-    return <div className="footer">Footer</div>
+    return <div className="footer">Footer</div>;
   }
 }
+

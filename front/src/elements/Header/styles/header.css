@@ -3,19 +3,22 @@
 
 .header {
   color: rgb(130, 131, 133);
-  display: flex;
+  /* display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
+  align-items: center; */
+  /* padding: 15px 20px; */
 }
 
 .header.mainPage {
   height: 1000px;
   height: 100vh;
   background-image: url(/images/main.jpg);
-  align-items: flex-start;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* align-items: flex-start; */
 }
 
 .header:not(.mainPage){
