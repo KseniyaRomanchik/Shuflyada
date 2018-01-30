@@ -4,36 +4,41 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import { setScreenSize } from 'actions/AppActions';
+
 import Routes from 'components/Pages/routes';
 import Header from 'elements/Header/HeaderContainer';
-import MainPageHeader from 'elements/Header/MainPageHeaderContainer';
 import Footer from 'elements/Footer/FooterContainer';
 
 import './App.css';
 
 type Props = {
-  currentPath: string
+  currentPath: string,
+  setScreenSize: Function
 };
 
-@connect(state => ({
-  currentPath: state.router.location.pathname
-}))
+// $FlowFixMe decorators
+@connect(
+  null,
+  dispatch => ({
+    setScreenSize: () => dispatch(setScreenSize())
+  })
+)
 
 export default class App extends Component<Props> {
 
-  render() {
+  componentWillMount() {
 
-    const { currentPath } = this.props;
+    const { setScreenSize } = this.props;
+
+    setScreenSize();
+  }
+
+  render() {
 
     return (
       <Container fluid={true} className="mainContent">
-        <Row>
-          {
-            currentPath.split('/')[1] ?
-              <Header /> :
-              <MainPageHeader />
-          }
-        </Row>
+        <Header />
         <Row>
           <Col md="12">
             <Routes />

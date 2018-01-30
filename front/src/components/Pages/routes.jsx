@@ -10,6 +10,8 @@ import Contacts from 'components/Pages/Contacts/ContactsContainer';
 import Main from 'components/Pages/Main/MainContainer';
 import Page404 from 'components/Pages/Page404/Page404Container';
 
+import routes from 'app/routeScheme';
+
 export default () => (
   <Switch>
     <Route exact path="/" component={Main} />

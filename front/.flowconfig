@@ -1,5 +1,7 @@
 [ignore]
 
+node_modules
+
 [include]
 
 [libs]
@@ -7,5 +9,7 @@
 [lints]
 
 [options]
+
+module.name_mapper="(.*)", "/src/\1"
 
 [strict]

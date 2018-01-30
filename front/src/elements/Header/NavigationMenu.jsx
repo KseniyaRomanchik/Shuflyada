@@ -1,72 +1,58 @@
 // @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Col, Nav, NavItem, UncontrolledDropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import routes from 'app/routeScheme';
 
-type Props = {
-
-}
-
-type State = {
-
-};
-
-export default class NavigationMenu extends Component<Props, State> {
-
-  constructor(props) {
-    super(props);
-
-    this.state = this.initialState;
-
-    this.initialState = routes.reduce((routes, route) => {
-
-      if (route.subMenu) {
-        routes[route.route] = false;
-      }
-    }, {});
-  }
-
-  setDropDownOpened(routeName: string) {
-    this.setState({
-
-    })
-  }
-
-  render() {
-    return (
-      <Nav className="menu" justified={true} navbar={true}>
-        {
-          routes.map(menuItem => (
+const NavigationMenu = ({ screenSize }) => (
+  <Col xs="12" lg="8">
+    <Nav tag="nav" className="menu" navbar={
+      screenSize === 'xs' ||
+      screenSize === 'sm' ||
+      screenSize === 'md'
+    }>
+      {
+        routes.map(menuItem => (
+          menuItem.subMenu ?
+            <UncontrolledDropdown nav>
+              <DropdownToggle nav caret>
+                <span>{ menuItem.name }</span>
+              </DropdownToggle>
+              <DropdownMenu>
+                {
+                  menuItem.subMenu.map(subItem => (
+                    <DropdownItem key={subItem.name}>
+                      <NavLink
+                        to={`/${ menuItem.route }/${ subItem.route }`}
+                        activeClassName="active"
+                      >
+                        <span>{ subItem.name }</span>
+                      </NavLink>
+                    </DropdownItem>
+                  ))
+                }
+              </DropdownMenu>
+            </UncontrolledDropdown> :
             <NavItem key={menuItem.name}>
-              {
-                menuItem.subMenu ?
-                  <Dropdown nav isOpen={this.state[menuItem.route]}>
-                    <DropdownToggle nav caret toggle={this.setDropDownOpened.bind(this, menuItem.route)}>
-                      Dropdown
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      {
-                        menuItem.subMenu.map(subItem => (
-                          <DropdownItem key={subItem.name}>
-                            <NavLink to={`/${ menuItem.route }/${ subItem.route }`} activeClassName="active" >
-                              { subItem.name }
-                            </NavLink>
-                          </DropdownItem>
-                        ))
-                      }
-                    </DropdownMenu>
-                  </Dropdown> :
-                  <NavLink to={`/${ menuItem.route }`} activeClassName="active" >
-                    { menuItem.name }
-                  </NavLink>
-              }
+              <NavLink
+                to={`/${ menuItem.route }`}
+                activeClassName="active"
+                className="nav-link"
+              >
+                <span>{ menuItem.name }</span>
+              </NavLink>
             </NavItem>
-          ))
-        }
-      </Nav>
-    );
-  }
+        ))
+      }
+    </Nav>
+  </Col>
+);
+
+NavigationMenu.propTypes = {
+  screenSize: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])
 };
+
+export default NavigationMenu;
 
